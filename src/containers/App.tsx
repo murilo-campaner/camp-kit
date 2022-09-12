@@ -1,8 +1,8 @@
-import Routes from "../config/routes";
-import { BrowserRouter as Router } from "react-router-dom";
-import { AuthProvider } from "../context/auth";
+import Routes from '../config/routes'
+import { BrowserRouter as Router } from 'react-router-dom'
+import { AuthProvider } from '../context/auth'
 
-export default function App() {
+export default function App () {
   return (
     <div className="App">
       <AuthProvider>
@@ -11,5 +11,5 @@ export default function App() {
         </Router>
       </AuthProvider>
     </div>
-  );
+  )
 }

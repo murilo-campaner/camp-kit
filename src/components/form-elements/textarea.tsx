@@ -1,3 +1,3 @@
 export const Textarea = ({ ...props }) => {
-  return <textarea {...props} />;
-};
+  return <textarea {...props} />
+}

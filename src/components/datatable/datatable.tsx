@@ -1,3 +1,3 @@
 export const Datatable = () => {
-  return null;
-};
+  return null
+}

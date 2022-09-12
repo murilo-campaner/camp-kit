@@ -1,89 +1,88 @@
-import React from "react";
-import loginReducer from "./reducer";
+import React from 'react'
+import loginReducer from './reducer'
 
-type AuthContextType = {
-  state?: any,
-  dispatch?: any,
-};
+interface AuthContextType {
+  state?: any
+  dispatch?: any
+}
 
 const users = [
   {
-    name: "Murilo Campaner",
-    username: "murilonkz",
-    password: "123",
-    authToken: "123456"
+    name: 'Murilo Campaner',
+    username: 'murilonkz',
+    password: '123',
+    authToken: '123456'
   }
-];
+]
 
-const AuthContext = React.createContext<AuthContextType>({});
+const AuthContext = React.createContext<AuthContextType | null>(null)
 
 export const AuthProvider = ({ children }) => {
-  const [state, dispatch] = loginReducer();
+  const [state, dispatch] = loginReducer()
 
   return (
     <AuthContext.Provider value={{ state, dispatch }}>
       {children}
     </AuthContext.Provider>
-  );
-};
+  )
+}
 
 export const useAuth = () => {
-  const context = React.useContext(AuthContext);
+  const context = React.useContext(AuthContext)
 
-  if (!context) {
-    throw new Error("useAuth must be used within <LoginContext.Provider>");
+  if (context == null) {
+    throw new Error('useAuth must be used within <LoginContext.Provider>')
   }
 
-  const { state, dispatch } = context;
+  const { state, dispatch } = context
 
   const isLoggedIn = () => {
     /* @TODO: Implement backend login check */
-    const authUser = sessionStorage.getItem("auth-user") || "";
-    const parsedAuthUser = JSON.parse(authUser);
+    const authUser = sessionStorage.getItem('auth-user')
     // @TODO: Validate token
-    return !!parsedAuthUser;
-  };
+    return !!authUser
+  }
 
   const login = React.useCallback(
     ({ username, password }) => {
       /* @TODO: Implement backend login */
       const user = users.find(
         (user) => user.username === username && user.password === password
-      );
-      if (!!user) {
-        sessionStorage.setItem("auth-user", JSON.stringify(user));
+      )
+      if (user != null) {
+        sessionStorage.setItem('auth-user', JSON.stringify(user))
         dispatch({
-          type: "login",
+          type: 'login',
           payload: user
-        });
+        })
       } else {
         dispatch({
-          type: "login",
+          type: 'login',
           error: true
-        });
+        })
       }
     },
     [dispatch]
-  );
+  )
 
   const logout = React.useCallback(() => {
     /* @TODO: Implement backend logout */
-    sessionStorage.removeItem("auth-user");
+    sessionStorage.removeItem('auth-user')
     dispatch({
-      type: "logout"
-    });
-  }, [dispatch]);
+      type: 'logout'
+    })
+  }, [dispatch])
 
   const recoveryPassword = React.useCallback(
-    ({ username }) => {
+    ({ username }: { username: string }) => {
       /* @TODO: Implement backend recovery password */
-      console.log(username);
+      console.log(username)
       dispatch({
-        type: "recovery"
-      });
+        type: 'recovery'
+      })
     },
     [dispatch]
-  );
+  )
 
   return {
     authUser: state.authUser,
@@ -91,5 +90,5 @@ export const useAuth = () => {
     login,
     logout,
     recoveryPassword
-  };
-};
+  }
+}

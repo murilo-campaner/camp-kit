@@ -1,1 +1,1 @@
-export const Form = (props) => <form {...props} />;
+export const Form = (props) => <form {...props} />

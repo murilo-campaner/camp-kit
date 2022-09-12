@@ -1,1 +1,1 @@
-const AllTransactions = () => {}
+export const AllTransactions = () => {}

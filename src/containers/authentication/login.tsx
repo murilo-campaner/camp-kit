@@ -1,19 +1,19 @@
-import React from "react";
-import { Navigate } from "react-router-dom";
-import { TextInput, Button, H1, Link, Form } from "../../components";
-import { useAuth } from "../../context/auth";
+import React from 'react'
+import { Navigate } from 'react-router-dom'
+import { TextInput, Button, H1, Link, Form } from '../../components'
+import { useAuth } from '../../context/auth'
 
 export const Login = () => {
-  const { login, isLoggedIn } = useAuth();
+  const { login, isLoggedIn } = useAuth()
 
   const handleFormSubmit = (event) => {
-    event.preventDefault();
-    const formData = Object.fromEntries(new FormData(event.target));
-    login(formData);
-  };
+    event.preventDefault()
+    const formData = Object.fromEntries(new FormData(event.target)) as any
+    login(formData)
+  }
 
   if (isLoggedIn()) {
-    return <Navigate to="/dashboard/resume" replace={true} />;
+    return <Navigate to="/dashboard/resume" replace={true} />
   }
 
   return (
@@ -26,5 +26,5 @@ export const Login = () => {
       </Form>
       <Link href="/recuperar-senha">Recuperar senha</Link>
     </div>
-  );
-};
+  )
+}

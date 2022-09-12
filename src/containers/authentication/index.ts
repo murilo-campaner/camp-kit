@@ -1,2 +1,2 @@
-export * from "./login";
-export * from "./recovery-password";
+export * from './login'
+export * from './recovery-password'

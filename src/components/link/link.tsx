@@ -1,1 +1,1 @@
-export const Link = (props) => <a {...props} />;
+export const Link = (props) => <a {...props} />
